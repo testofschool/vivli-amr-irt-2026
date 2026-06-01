@@ -1,0 +1,10 @@
+atlas_species,who_bppl_pathogen_or_family,who_priority_score,who_priority_category,mapping_note
+Acinetobacter baumannii,Acinetobacter baumannii (carbapenem-resistant),3,Critical,Direct species match (CRAB critical tier)
+Klebsiella pneumoniae,Enterobacterales (3GC/carbapenem-resistant),3,Critical,Species within Enterobacterales critical tier
+Escherichia coli,Enterobacterales (3GC/carbapenem-resistant),3,Critical,Species within Enterobacterales critical tier
+Pseudomonas aeruginosa,Pseudomonas aeruginosa (carbapenem-resistant),2,High,Moved from Critical to High in BPPL 2024 revision
+Enterococcus faecium,Enterococcus faecium (vancomycin-resistant),2,High,Direct species match (VRE)
+Staphylococcus aureus,Staphylococcus aureus (methicillin-resistant),2,High,Direct species match (MRSA)
+Enterococcus faecalis,Enterococcus faecium (vancomycin-resistant),2,High,Same genus mapped to closest WHO entry (E. faecium VRE); imperfect proxy
+Streptococcus pneumoniae,Streptococcus pneumoniae (penicillin-non-susceptible),1,Medium,Direct species match
+Haemophilus influenzae,Haemophilus influenzae (ampicillin-resistant),1,Medium,Direct species match

@@ -1,0 +1,9 @@
+feature_name,description,source,unit
+n_genes,CARD resistance gene entries matching antibiotic drug class,aro_categories_index.tsv,count
+n_fam,Distinct AMR gene families,aro_categories_index.tsv,count
+antibiotic_efflux,Efflux pump mechanism genes,aro_categories_index.tsv,count
+antibiotic_inactivation,Enzymatic inactivation mechanism genes,aro_categories_index.tsv,count
+antibiotic_target_alteration,Target site alteration genes,aro_categories_index.tsv,count
+antibiotic_target_protection,Target protection genes,aro_categories_index.tsv,count
+antibiotic_target_replacement,Target replacement genes,aro_categories_index.tsv,count
+reduced_permeability_to_antibiotic,Reduced membrane permeability genes,aro_categories_index.tsv,count
