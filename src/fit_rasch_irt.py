@@ -115,20 +115,54 @@ def fit_lltm(R, mask, N, X, cap=500, reg=0.01):
 
 
 def build_card_features(card_path, antibiotics):
-    """Extract 8 molecular features per antibiotic from CARD aro_categories_index.tsv."""
+    """Extract 8 molecular features per antibiotic from CARD aro_categories_index.tsv.
+
+    Features: [n_resistance_genes, n_gene_families,
+               efflux, inactivation, target_alteration,
+               target_protection, target_replacement, reduced_permeability]
+
+    Drug class mapping uses CARD's own terminology (e.g. 'penicillin' not 'penam',
+    'peptide antibiotic' not 'lipopeptide'). All 42 ATLAS antibiotics map to
+    non-zero feature vectors. Antibiotics within the same drug class share identical
+    feature vectors (15 distinct vectors for 42 antibiotics); intra-class potency
+    variation is captured by the free IRT parameters, not the LLTM decomposition.
+    """
     aro = pd.read_csv(card_path, sep='\t')
     abx_map = {
-        'amikacin': ['aminoglycoside'], 'ampicillin': ['penam'], 'azithromycin': ['macrolide'],
-        'aztreonam': ['monobactam'], 'cefepime': ['cephalosporin'], 'cefiderocol': ['cephalosporin'],
-        'ceftazidime': ['cephalosporin'], 'ceftriaxone': ['cephalosporin'],
-        'ciprofloxacin': ['fluoroquinolone'], 'colistin': ['peptide antibiotic'],
-        'daptomycin': ['lipopeptide'], 'doripenem': ['carbapenem'], 'ertapenem': ['carbapenem'],
-        'gentamicin': ['aminoglycoside'], 'imipenem': ['carbapenem'],
-        'levofloxacin': ['fluoroquinolone'], 'linezolid': ['oxazolidinone'],
-        'meropenem': ['carbapenem'], 'metronidazole': ['nitroimidazole'],
-        'minocycline': ['tetracycline'], 'moxifloxacin': ['fluoroquinolone'],
-        'oxacillin': ['penam'], 'penicillin': ['penam'], 'tetracycline': ['tetracycline'],
-        'tigecycline': ['glycylcycline', 'tetracycline'], 'vancomycin': ['glycopeptide'],
+        # Aminoglycosides
+        'amikacin': ['aminoglycoside'], 'gentamicin': ['aminoglycoside'],
+        'tobramycin': ['aminoglycoside'],
+        # Penicillins — CARD uses 'penicillin beta-lactam', matched by 'penicillin'
+        'ampicillin': ['penicillin'], 'ampicillin sulbactam': ['penicillin'],
+        'amoxycillin clavulanate': ['penicillin'], 'oxacillin': ['penicillin'],
+        'penicillin': ['penicillin'], 'piperacillin tazobactam': ['penicillin'],
+        # Cephalosporins (CARD does not distinguish cephamycins)
+        'cefepime': ['cephalosporin'], 'cefiderocol': ['cephalosporin'],
+        'cefixime': ['cephalosporin'], 'cefoxitin': ['cephalosporin'],
+        'cefpodoxime': ['cephalosporin'], 'ceftaroline': ['cephalosporin'],
+        'ceftazidime': ['cephalosporin'], 'ceftazidime avibactam': ['cephalosporin'],
+        'ceftibuten': ['cephalosporin'], 'ceftolozane tazobactam': ['cephalosporin'],
+        'ceftriaxone': ['cephalosporin'],
+        # Carbapenems
+        'doripenem': ['carbapenem'], 'ertapenem': ['carbapenem'],
+        'imipenem': ['carbapenem'], 'meropenem': ['carbapenem'],
+        'meropenem vaborbactam': ['carbapenem'], 'imipenem relebactam': ['carbapenem'],
+        # Monobactam
+        'aztreonam': ['monobactam'],
+        # Fluoroquinolones
+        'ciprofloxacin': ['fluoroquinolone'], 'levofloxacin': ['fluoroquinolone'],
+        'moxifloxacin': ['fluoroquinolone'],
+        # Tetracyclines
+        'minocycline': ['tetracycline'], 'tetracycline': ['tetracycline'],
+        'tigecycline': ['glycylcycline', 'tetracycline'],
+        # Other classes
+        'azithromycin': ['macrolide'], 'vancomycin': ['glycopeptide'],
+        'linezolid': ['oxazolidinone'],
+        'daptomycin': ['peptide antibiotic'],  # CARD has no 'lipopeptide' class
+        'colistin': ['peptide antibiotic'],
+        'metronidazole': ['nitroimidazole'],
+        'trimethoprim sulfa': ['sulfonamide', 'diaminopyrimidine'],
+        'nitrofurantoin': ['nitrofuran'], 'chloramphenicol': ['phenicol'],
     }
     mechs = ['antibiotic efflux', 'antibiotic inactivation', 'antibiotic target alteration',
              'antibiotic target protection', 'antibiotic target replacement',
