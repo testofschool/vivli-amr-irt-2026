@@ -46,9 +46,9 @@ code that drew it is not in this repository.
 
 ## Reproducibility status of committed outputs (2026-09-29)
 
-The files in `outputs/` and `figures/` were **not** produced by the committed
-`src/fit_rasch_irt.py`; they come from a different, uncommitted version of the analysis code and
-**cannot be regenerated from the committed script**. The ATLAS input is not redistributable and is
+The files in `outputs/` and `figures/` do **not** match what the committed
+`src/fit_rasch_irt.py` writes, and **cannot be regenerated from the committed script**. The code
+and command that produced them are not in this repository. The ATLAS input is not redistributable and is
 not in this repository, so the committed script could not be re-run to settle this; the evidence
 below comes from the committed files alone:
 
