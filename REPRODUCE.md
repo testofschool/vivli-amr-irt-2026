@@ -55,6 +55,12 @@ The script exits gracefully with an explanatory message if either input is missi
 | `outputs/superbug_leaderboard.csv` | Species ranked by latent resistance theta |
 | `outputs/antibiotic_potency.csv`   | Antibiotics ranked by potency b (IRT + LLTM) |
 
+> **Note (2026-09-29):** the files already committed in `outputs/` (`ATLAS_*.csv`) and `figures/`
+> do not match what this script writes, and the code and command that produced them are not in
+> this repository (different file names/columns; committed θ and b are not mean-centred; the
+> sparsity, temporal and geographic outputs have no committed generator). See README
+> "Reproducibility status of committed outputs".
+
 ## Method notes
 
 - **Likelihood:** each observed species–antibiotic cell contributes
